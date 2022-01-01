@@ -38,7 +38,6 @@
 			this.contextMenuStripLV = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.MenuItemViewInWMIT = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemViewAsOBJ = new System.Windows.Forms.ToolStripMenuItem();
-			this.MenuItemSaveToOBJ = new System.Windows.Forms.ToolStripMenuItem();
 			this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.TxPieContent = new System.Windows.Forms.TextBox();
@@ -100,10 +99,9 @@
 			// 
 			this.contextMenuStripLV.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MenuItemViewInWMIT,
-            this.MenuItemViewAsOBJ,
-            this.MenuItemSaveToOBJ});
+            this.MenuItemViewAsOBJ});
 			this.contextMenuStripLV.Name = "contextMenuStripLV";
-			this.contextMenuStripLV.Size = new System.Drawing.Size(147, 70);
+			this.contextMenuStripLV.Size = new System.Drawing.Size(181, 70);
 			this.contextMenuStripLV.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStripLV_ItemClicked);
 			// 
 			// MenuItemViewInWMIT
@@ -117,12 +115,6 @@
 			this.MenuItemViewAsOBJ.Name = "MenuItemViewAsOBJ";
 			this.MenuItemViewAsOBJ.Size = new System.Drawing.Size(146, 22);
 			this.MenuItemViewAsOBJ.Text = "View as OBJ";
-			// 
-			// MenuItemSaveToOBJ
-			// 
-			this.MenuItemSaveToOBJ.Name = "MenuItemSaveToOBJ";
-			this.MenuItemSaveToOBJ.Size = new System.Drawing.Size(146, 22);
-			this.MenuItemSaveToOBJ.Text = "Save to OBJ";
 			// 
 			// panel2
 			// 
@@ -244,7 +236,6 @@
 		private System.Windows.Forms.ContextMenuStrip contextMenuStripLV;
 		private System.Windows.Forms.ToolStripMenuItem MenuItemViewInWMIT;
 		private System.Windows.Forms.ToolStripMenuItem MenuItemViewAsOBJ;
-		private System.Windows.Forms.ToolStripMenuItem MenuItemSaveToOBJ;
 		private System.Windows.Forms.ToolStrip toolStrip1;
 		private System.Windows.Forms.ToolStripLabel toolStripLabel1;
 		private System.Windows.Forms.ToolStripTextBox ToolStripTxFilter;

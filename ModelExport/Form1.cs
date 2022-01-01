@@ -12,6 +12,13 @@ using System.Diagnostics;
 
 namespace ModelExport
 {
+	/// <summary>
+	/// WZ2100 PIE model search and view
+	/// Dependencies:
+	/// WMIT.exe installed and specified in settings
+	/// A default app for handling .obj files, as we use ShellExecute
+	/// Temp directory in settings for writing .obj files to etc.
+	/// </summary>
 	public partial class Form1 : Form
 	{
 		private string mSavedToOBJ;
@@ -30,23 +37,49 @@ namespace ModelExport
 			}
 		}
 
+		/// <summary>
+		/// Show the settings dialog
+		/// If True/Saved refresh stuff using settings
+		/// Note: we don't know if user actually changed anything, could track changes to reduce redundant action, who cares?
+		/// </summary>
+		/// <returns>True = Saved</returns>
 		private bool UpdateSettings()
 		{
 			SettingsForm settingsDialog = new SettingsForm();
 			return settingsDialog.ShowDialog(this) == DialogResult.OK;
 		}
 
+		/// <summary>
+		/// Toolstrip refresh button. Reload the PIE list, applying any changes to filters
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void ToolStripBtnRefresh_Click(object sender, EventArgs e)
 		{
 			ReloadPieDirectory();
 		}
 
+		/// <summary>
+		/// Toolstrip settings button
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void ToolStripBtnSettings_Click(object sender, EventArgs e)
 		{
 			if (UpdateSettings())
 				ReloadPieDirectory();
 		}
 
+		/// <summary>
+		/// Populate the PIE list view.  Apply current filters before adding item to the list.
+		/// Simple string find is used across all visible content on each row.
+		/// 
+		/// TODO Determine if other criteria filters would be useful to somebody.
+		/// String filters that work: 
+		///    'page-14' filters on specific texture name
+		///    'type 2'  filters on PIE type
+		/// String filter includs texture names, is a dropdown list more or less useful?
+		/// </summary>
 		private void ReloadPieDirectory()
 		{
 			LvPieFiles.Items.Clear();
@@ -68,6 +101,9 @@ namespace ModelExport
 			{
 				rdr = pieFile.OpenText();
 				metadata = new string[]{ pieFile.Name, "", "", "" };
+				/* Assumption: don't know (yet) if these sections are always in the same order, or mandatory.
+				 * Take what we can find.
+				 */
 				for (int idx = 0; idx < 5; idx++)
 				{
 					row = rdr.ReadLine();
@@ -93,6 +129,9 @@ namespace ModelExport
 				}
 				rdr.Close();
 
+				/* Simple IndexOf string filter
+				 * TODO move filtering out of here if it becomes complex
+				 */
 				bool includeIt = true;
 				if (filter.Length > 0)
 				{
@@ -112,14 +151,14 @@ namespace ModelExport
 				}
 			}
 			LvPieFiles.EndUpdate();
-			if (LvPieFiles.Items.Count > 0)
-			{
-				// Update users PathPies setting with this path
-				Properties.Settings.Default.PathPies = dir.FullName;
-				Properties.Settings.Default.Save();
-			}
 		}
 
+		/// <summary>
+		/// Item activated, default action is to open in WMIT.
+		/// Should do the same as the context menu function.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void LvPieFiles_ItemActivate(object sender, EventArgs e)
 		{
 			if (LvPieFiles.SelectedItems.Count < 1) return;
@@ -130,16 +169,25 @@ namespace ModelExport
 				OpenWMIT(PiePath);
 		}
 
+		/// <summary>
+		/// PIE row selected. Load the content view
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void LvPieFiles_Click(object sender, EventArgs e)
 		{
-			if (LvPieFiles.SelectedItems.Count < 1) return;
-
+			if (LvPieFiles.SelectedItems.Count < 1) 
+				return;
 			ListViewItem selection = LvPieFiles.SelectedItems[0];
 			string PiePath = (string)selection.Tag;
 			if (PiePath.Length > 0 && File.Exists(PiePath))
 				LoadPieView(PiePath);
 		}
 
+		/// <summary>
+		/// Load PIE file content and put it in the PIE content view object
+		/// </summary>
+		/// <param name="piePath"></param>
 		private void LoadPieView(string piePath)
 		{
 			FileInfo fileInfo = new FileInfo(piePath);
@@ -172,9 +220,9 @@ namespace ModelExport
 			}
 
 			/* TODO  Determine what is needed and what is redundant...
-			 * -- Option to open PIE in WMIT for viewing						- depends on config path
-			 * -- Option to convert PIE to OBJ and save to specified file		- redundant as save-as option in WMIT is preferred, and doesn't require a temporary file
+			 * -- Option to open PIE in WMIT for viewing						- depends on config path, seems reliable to invoke in shell
 			 * -- Option to convert PIE to OBJ then open it in preferred app?	- depends on default .obj handler, check what exceptions apply
+			 * -- Option to convert PIE to OBJ and save to specified file		- redundant as save-as option in WMIT is preferred, and doesn't require a temporary file
 			 * 
 			 * WMIT Usage:
 			 *		<no parameters> (opens GUI application)
@@ -223,10 +271,6 @@ namespace ModelExport
 
 				case "MenuItemViewAsOBJ":
 					SaveToOBJ(PiePath, true);
-					break;
-
-				case "MenuItemSaveToOBJ":
-					SaveToOBJ(PiePath, false);
 					break;
 
 				default:
