@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ModelExport.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="PathPies" Type="System.String" Scope="User">
+      <Value Profile="(Default)">E:\Projects\WZ2100\flaME\data\3.1_b4-objects\pies\</Value>
+    </Setting>
+    <Setting Name="PathTexpages" Type="System.String" Scope="User">
+      <Value Profile="(Default)">E:\Projects\WZ2100\flaME\data\3.1_b4-objects\texpages\</Value>
+    </Setting>
+    <Setting Name="PathWMIT" Type="System.String" Scope="User">
+      <Value Profile="(Default)">E:\Projects\WZ2100\WMIT 0.7.0\WMIT.exe</Value>
+    </Setting>
+    <Setting Name="PathTemp" Type="System.String" Scope="User">
+      <Value Profile="(Default)">E:\Projects\WZ2100\ModelTemp\</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
