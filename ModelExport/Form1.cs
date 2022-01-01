@@ -234,7 +234,6 @@ namespace ModelExport
 			}
 		}
 
-		/*
 		private void SaveToOBJ(string PiePath, bool ViewAfter)
 		{
 			FileInfo fileInfo = new FileInfo(PiePath);
@@ -283,7 +282,6 @@ namespace ModelExport
 				ViewOBJ(mSavedToOBJ);
 			}
 		}
-		*/
 
 		/// <summary>
 		/// Use default handler for .obj files to open in preferred app
