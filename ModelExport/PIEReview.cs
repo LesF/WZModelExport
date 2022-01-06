@@ -9,21 +9,33 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
+using System.Web.Script.Serialization;
 
 namespace ModelExport
 {
 	/// <summary>
-	/// WZ2100 PIE model search and view
+	/// Main startup form. WZ2100 PIE model search and view, plus whatever functionality I feel like exploring.
 	/// Dependencies:
-	/// WMIT.exe installed and specified in settings
-	/// A default app for handling .obj files, as we use ShellExecute
-	/// Temp directory in settings for writing .obj files to etc.
+	/// - WMIT.exe installed and specified in settings
+	/// - A default app for handling .obj files, as we use ShellExecute
+	/// - Temp directory in settings for writing .obj files to etc.
+	///		* May combine this setting with common data repo requirements: dirs for export files, temp files, data repo, log files
+	///		
+	///	TODO implement logging
+	/// 
+	/// Note to anybody that gets here before I delete it... this is a flow-of-thought
+	/// skeleton of code which does stuff, which will mostly be redistrubuted into other
+	/// task-specific or entity-specific objects later.
+	/// This is about compilable trial code ahead of good design and re-thinks.
 	/// </summary>
-	public partial class Form1 : Form
+	public partial class PIEReview : Form
 	{
 		private string mSavedToOBJ;
+		private Dictionary<string, PIEMetadata> mPIEMetadata;
+		private string mTempPath;
+		private string mDataStore;
 
-		public Form1()
+		public PIEReview()
 		{
 			InitializeComponent();
 			if (string.IsNullOrEmpty(Properties.Settings.Default.PathPies)
@@ -33,6 +45,7 @@ namespace ModelExport
 			}
 			else
 			{
+				LoadMetadata();
 				ReloadPieDirectory();
 			}
 		}
@@ -96,11 +109,12 @@ namespace ModelExport
 			string row;
 			StreamReader rdr;
 			string[] metadata;
+			string dataKey;
 			string filter = ToolStripTxFilter.Text.Trim();
 			foreach (FileInfo pieFile in files)
 			{
 				rdr = pieFile.OpenText();
-				metadata = new string[]{ pieFile.Name, "", "", "" };
+				metadata = new string[]{ pieFile.Name, "", "", "", "" };
 				/* Assumption: don't know (yet) if these sections are always in the same order, or mandatory.
 				 * Take what we can find.
 				 */
@@ -129,11 +143,20 @@ namespace ModelExport
 				}
 				rdr.Close();
 
+				dataKey = pieFile.Name.ToLower();
+				if (mPIEMetadata.Count > 0 && mPIEMetadata.ContainsKey(dataKey))
+					metadata[4] = string.Join(",", mPIEMetadata[dataKey].Tags);
+
 				/* Simple IndexOf string filter
 				 * TODO move filtering out of here if it becomes complex
 				 */
 				bool includeIt = true;
-				if (filter.Length > 0)
+				if (ToolStripTagFilter.SelectedIndex > 0)
+				{
+					string tagFilter = ToolStripTagFilter.SelectedItem.ToString();
+					includeIt = mPIEMetadata.ContainsKey(dataKey) && mPIEMetadata[dataKey].Tags.Contains(tagFilter);
+				}
+				if (includeIt && filter.Length > 0)
 				{
 					includeIt = false;
 					for (int i = 0; i < metadata.Length; i++)
@@ -273,6 +296,17 @@ namespace ModelExport
 					SaveToOBJ(PiePath, true);
 					break;
 
+				case "MenuItemEditTags":
+					/* TODO
+					 * Popup or load a panel in the main form?
+					 * Create data repo for these.
+					 * - SQLite or just serialize a JSON collection?
+					 * - Need data directory, or integrate this with PathTemp setting? Subdirs: Data,Exports,Logs under one path setting? (TODO set up logging)
+					 * 
+					 */
+					EditMetadata(selection);
+					break;
+
 				default:
 					break;
 			}
@@ -359,5 +393,71 @@ namespace ModelExport
 				MessageBox.Show(this, $"Process creation failed\r\n{exc.Message}", "OBJ View Failed");
 			}
 		}
+
+		private void LoadMetadata()
+		{
+			mPIEMetadata = new Dictionary<string, PIEMetadata>();
+			mTempPath = Properties.Settings.Default.PathTemp;
+			if (Directory.Exists(mTempPath))
+			{
+				mDataStore = Path.Combine(mTempPath, "Data");
+				if (!Directory.Exists(mDataStore))
+					Directory.CreateDirectory(mDataStore);
+				mDataStore = Path.Combine(mDataStore, "PIEData.json");
+
+				if (File.Exists(mDataStore))
+				{
+					string JSONData = File.ReadAllText(mDataStore);
+					mPIEMetadata = new JavaScriptSerializer().Deserialize<Dictionary<string, PIEMetadata>>(JSONData);
+					PopulateTagFilter();
+				}
+			}
+		}
+
+		private void PopulateTagFilter()
+		{
+			List<string> list = new List<string>();
+			foreach (string key in mPIEMetadata.Keys)
+			{
+				foreach (string tag in mPIEMetadata[key].Tags)
+					if (tag.Length > 0 && !list.Contains(tag))
+					{
+						list.Add(tag);
+					}
+			}
+			list.Sort();
+			ToolStripTagFilter.Items.Clear();
+			ToolStripTagFilter.Items.Add("<all>");
+			ToolStripTagFilter.SelectedIndex = -1;
+			foreach (string tag in list)
+				ToolStripTagFilter.Items.Add(tag);
+			ToolStripTagFilter.SelectedIndex = 0;
+		}
+
+		private void EditMetadata(ListViewItem PIEItem)
+		{
+			string piePath = PIEItem.Tag as string;
+			FileInfo fileInfo = new FileInfo(piePath);
+			if (fileInfo.Exists)
+			{
+				PIETagsEdit editDialog = new PIETagsEdit();
+				string dataKey = fileInfo.Name.ToLower();
+				editDialog.LoadPIE(dataKey, mPIEMetadata);
+				if (editDialog.ShowDialog(this) == DialogResult.OK)
+				{
+					// Save changes - TODO check if there is data first? What exceptions might occur?
+					string JSONData = new JavaScriptSerializer().Serialize(mPIEMetadata);
+					File.WriteAllText(mDataStore, JSONData);
+					// Update the view
+					if (mPIEMetadata.ContainsKey(dataKey))
+						PIEItem.SubItems[4].Text = string.Join(",", mPIEMetadata[dataKey].Tags);
+					else
+						PIEItem.SubItems[4].Text = "";
+
+					PopulateTagFilter();
+				}
+			}
+		}
+
 	}
 }
