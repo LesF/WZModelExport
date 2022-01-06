@@ -4,7 +4,7 @@ Warzone2100 model search and view tool.  (version 0.1, stage:Nothing you can't a
 ----------
 A personal interest project.  My initial plan was to find and combine different droid parts to export as a 3D printable object.
 
-Assumes you have unpacked the appropriate WZ2100 resources and have a set if .pie files.
+Assumes you have unpacked the appropriate WZ2100 resources and have a set of .pie files.
 
 Custom tags can be applied to each .pie file, to aid in grouping and filtering the files.
 
