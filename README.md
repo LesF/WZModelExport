@@ -1,6 +1,6 @@
 # WZModelExport
 
-Warzone2100 model search and view tool.  (version 0.1, stage:Nothing you can't achieve with notepad)
+Warzone2100 model search and view tool.  (version 0.1, work in progress)
 ----------
 A personal interest project.  My initial plan was to find and combine different droid parts to export as a 3D printable object.
 
