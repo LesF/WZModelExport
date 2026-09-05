@@ -1,4 +1,4 @@
-﻿namespace ModelExport
+namespace ModelExport
 {
 	partial class PIEReview
 	{
@@ -35,28 +35,46 @@
 			this.columnHeaderTexture = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.columnHeadSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.columnHeadType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.columnHeadTags = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.contextMenuStripLV = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.MenuItemViewInWMIT = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemViewAsOBJ = new System.Windows.Forms.ToolStripMenuItem();
+			this.MenuItemExportGltf = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+			this.MenuItemEditTags = new System.Windows.Forms.ToolStripMenuItem();
 			this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-			this.panel2 = new System.Windows.Forms.Panel();
-			this.TxPieContent = new System.Windows.Forms.TextBox();
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
 			this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
 			this.ToolStripTxFilter = new System.Windows.Forms.ToolStripTextBox();
+			this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+			this.ToolStripTagFilter = new System.Windows.Forms.ToolStripComboBox();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.ToolStripBtnRefresh = new System.Windows.Forms.ToolStripButton();
+			this.ToolStripBtnExportGltf = new System.Windows.Forms.ToolStripButton();
 			this.ToolStripBtnSettings = new System.Windows.Forms.ToolStripButton();
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.ToolStripTagFilter = new System.Windows.Forms.ToolStripComboBox();
-			this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
-			this.columnHeadTags = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.MenuItemEditTags = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+			this.splitContainerMain = new System.Windows.Forms.SplitContainer();
+			this.splitContainerRight = new System.Windows.Forms.SplitContainer();
+			this.pieViewportControl1 = new ModelExport.Controls.PieViewportControl();
+			this.tabControlDetails = new System.Windows.Forms.TabControl();
+			this.tabModelInfo = new System.Windows.Forms.TabPage();
+			this.txModelInfo = new System.Windows.Forms.TextBox();
+			this.tabPieContent = new System.Windows.Forms.TabPage();
+			this.TxPieContent = new System.Windows.Forms.TextBox();
 			this.contextMenuStripLV.SuspendLayout();
-			this.panel2.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
 			this.panel1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
+			this.splitContainerMain.Panel1.SuspendLayout();
+			this.splitContainerMain.Panel2.SuspendLayout();
+			this.splitContainerMain.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.splitContainerRight)).BeginInit();
+			this.splitContainerRight.Panel1.SuspendLayout();
+			this.splitContainerRight.Panel2.SuspendLayout();
+			this.splitContainerRight.SuspendLayout();
+			this.tabControlDetails.SuspendLayout();
+			this.tabModelInfo.SuspendLayout();
+			this.tabPieContent.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// LvPieFiles
@@ -72,79 +90,81 @@
 			this.LvPieFiles.FullRowSelect = true;
 			this.LvPieFiles.GridLines = true;
 			this.LvPieFiles.HideSelection = false;
-			this.LvPieFiles.Location = new System.Drawing.Point(0, 27);
+			this.LvPieFiles.Location = new System.Drawing.Point(0, 0);
 			this.LvPieFiles.Name = "LvPieFiles";
-			this.LvPieFiles.Size = new System.Drawing.Size(728, 471);
+			this.LvPieFiles.Size = new System.Drawing.Size(430, 673);
 			this.LvPieFiles.TabIndex = 0;
 			this.LvPieFiles.UseCompatibleStateImageBehavior = false;
 			this.LvPieFiles.View = System.Windows.Forms.View.Details;
 			this.LvPieFiles.ItemActivate += new System.EventHandler(this.LvPieFiles_ItemActivate);
+			this.LvPieFiles.SelectedIndexChanged += new System.EventHandler(this.LvPieFiles_SelectedIndexChanged);
 			this.LvPieFiles.Click += new System.EventHandler(this.LvPieFiles_Click);
 			// 
 			// columnHeadName
 			// 
 			this.columnHeadName.Text = "Name";
-			this.columnHeadName.Width = 160;
+			this.columnHeadName.Width = 140;
 			// 
 			// columnHeaderTexture
 			// 
 			this.columnHeaderTexture.Text = "Texture";
-			this.columnHeaderTexture.Width = 250;
+			this.columnHeaderTexture.Width = 160;
 			// 
 			// columnHeadSize
 			// 
 			this.columnHeadSize.Text = "Size";
-			this.columnHeadSize.Width = 100;
+			this.columnHeadSize.Width = 60;
 			// 
 			// columnHeadType
 			// 
 			this.columnHeadType.Text = "Type";
-			this.columnHeadType.Width = 120;
+			this.columnHeadType.Width = 70;
+			// 
+			// columnHeadTags
+			// 
+			this.columnHeadTags.Text = "Tags";
+			this.columnHeadTags.Width = 100;
 			// 
 			// contextMenuStripLV
 			// 
 			this.contextMenuStripLV.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MenuItemViewInWMIT,
             this.MenuItemViewAsOBJ,
+            this.MenuItemExportGltf,
             this.toolStripSeparator2,
             this.MenuItemEditTags});
 			this.contextMenuStripLV.Name = "contextMenuStripLV";
-			this.contextMenuStripLV.Size = new System.Drawing.Size(181, 98);
+			this.contextMenuStripLV.Size = new System.Drawing.Size(188, 98);
 			this.contextMenuStripLV.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStripLV_ItemClicked);
 			// 
 			// MenuItemViewInWMIT
 			// 
 			this.MenuItemViewInWMIT.Name = "MenuItemViewInWMIT";
-			this.MenuItemViewInWMIT.Size = new System.Drawing.Size(180, 22);
+			this.MenuItemViewInWMIT.Size = new System.Drawing.Size(187, 22);
 			this.MenuItemViewInWMIT.Text = "View in WMIT";
 			// 
 			// MenuItemViewAsOBJ
 			// 
 			this.MenuItemViewAsOBJ.Name = "MenuItemViewAsOBJ";
-			this.MenuItemViewAsOBJ.Size = new System.Drawing.Size(180, 22);
+			this.MenuItemViewAsOBJ.Size = new System.Drawing.Size(187, 22);
 			this.MenuItemViewAsOBJ.Text = "View as OBJ";
 			// 
-			// panel2
+			// MenuItemExportGltf
 			// 
-			this.panel2.BackColor = System.Drawing.Color.PowderBlue;
-			this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.panel2.Controls.Add(this.TxPieContent);
-			this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.panel2.Location = new System.Drawing.Point(0, 498);
-			this.panel2.Name = "panel2";
-			this.panel2.Size = new System.Drawing.Size(728, 174);
-			this.panel2.TabIndex = 3;
+			this.MenuItemExportGltf.Name = "MenuItemExportGltf";
+			this.MenuItemExportGltf.Size = new System.Drawing.Size(187, 22);
+			this.MenuItemExportGltf.Text = "Export to glTF/GLB...";
 			// 
-			// TxPieContent
+			// toolStripSeparator2
 			// 
-			this.TxPieContent.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TxPieContent.Location = new System.Drawing.Point(0, 0);
-			this.TxPieContent.Multiline = true;
-			this.TxPieContent.Name = "TxPieContent";
-			this.TxPieContent.ReadOnly = true;
-			this.TxPieContent.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.TxPieContent.Size = new System.Drawing.Size(726, 172);
-			this.TxPieContent.TabIndex = 0;
+			this.toolStripSeparator2.Name = "toolStripSeparator2";
+			this.toolStripSeparator2.Size = new System.Drawing.Size(184, 6);
+			// 
+			// MenuItemEditTags
+			// 
+			this.MenuItemEditTags.Name = "MenuItemEditTags";
+			this.MenuItemEditTags.Size = new System.Drawing.Size(187, 22);
+			this.MenuItemEditTags.Text = "Edit tags";
 			// 
 			// toolStrip1
 			// 
@@ -155,10 +175,11 @@
             this.ToolStripTagFilter,
             this.toolStripSeparator1,
             this.ToolStripBtnRefresh,
+            this.ToolStripBtnExportGltf,
             this.ToolStripBtnSettings});
 			this.toolStrip1.Location = new System.Drawing.Point(0, 0);
 			this.toolStrip1.Name = "toolStrip1";
-			this.toolStrip1.Size = new System.Drawing.Size(726, 25);
+			this.toolStrip1.Size = new System.Drawing.Size(1082, 25);
 			this.toolStrip1.TabIndex = 4;
 			this.toolStrip1.Text = "toolStrip1";
 			// 
@@ -174,6 +195,21 @@
 			this.ToolStripTxFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
 			this.ToolStripTxFilter.Name = "ToolStripTxFilter";
 			this.ToolStripTxFilter.Size = new System.Drawing.Size(120, 25);
+			this.ToolStripTxFilter.TextChanged += new System.EventHandler(this.ToolStripTxFilter_TextChanged);
+			// 
+			// toolStripLabel2
+			// 
+			this.toolStripLabel2.Name = "toolStripLabel2";
+			this.toolStripLabel2.Size = new System.Drawing.Size(28, 22);
+			this.toolStripLabel2.Text = "Tag:";
+			// 
+			// ToolStripTagFilter
+			// 
+			this.ToolStripTagFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.ToolStripTagFilter.Name = "ToolStripTagFilter";
+			this.ToolStripTagFilter.Size = new System.Drawing.Size(121, 25);
+			this.ToolStripTagFilter.ToolTipText = "Add tags to PIE files for custom grouping";
+			this.ToolStripTagFilter.SelectedIndexChanged += new System.EventHandler(this.ToolStripTagFilter_SelectedIndexChanged);
 			// 
 			// toolStripSeparator1
 			// 
@@ -189,6 +225,16 @@
 			this.ToolStripBtnRefresh.Size = new System.Drawing.Size(71, 22);
 			this.ToolStripBtnRefresh.Text = "Refresh List";
 			this.ToolStripBtnRefresh.Click += new System.EventHandler(this.ToolStripBtnRefresh_Click);
+			// 
+			// ToolStripBtnExportGltf
+			// 
+			this.ToolStripBtnExportGltf.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.ToolStripBtnExportGltf.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+			this.ToolStripBtnExportGltf.ForeColor = System.Drawing.Color.DarkBlue;
+			this.ToolStripBtnExportGltf.Name = "ToolStripBtnExportGltf";
+			this.ToolStripBtnExportGltf.Size = new System.Drawing.Size(126, 22);
+			this.ToolStripBtnExportGltf.Text = "Export to glTF/GLB...";
+			this.ToolStripBtnExportGltf.Click += new System.EventHandler(this.ToolStripBtnExportGltf_Click);
 			// 
 			// ToolStripBtnSettings
 			// 
@@ -210,55 +256,140 @@
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
 			this.panel1.Location = new System.Drawing.Point(0, 0);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(728, 27);
+			this.panel1.Size = new System.Drawing.Size(1084, 27);
 			this.panel1.TabIndex = 2;
 			// 
-			// ToolStripTagFilter
+			// splitContainerMain
 			// 
-			this.ToolStripTagFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.ToolStripTagFilter.Name = "ToolStripTagFilter";
-			this.ToolStripTagFilter.Size = new System.Drawing.Size(121, 25);
-			this.ToolStripTagFilter.ToolTipText = "Add tags to PIE files for custom grouping";
+			this.splitContainerMain.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.splitContainerMain.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+			this.splitContainerMain.Location = new System.Drawing.Point(0, 27);
+			this.splitContainerMain.Name = "splitContainerMain";
 			// 
-			// toolStripLabel2
+			// splitContainerMain.Panel1
 			// 
-			this.toolStripLabel2.Name = "toolStripLabel2";
-			this.toolStripLabel2.Size = new System.Drawing.Size(28, 22);
-			this.toolStripLabel2.Text = "Tag:";
+			this.splitContainerMain.Panel1.Controls.Add(this.LvPieFiles);
 			// 
-			// columnHeadTags
+			// splitContainerMain.Panel2
 			// 
-			this.columnHeadTags.Text = "Tags";
-			this.columnHeadTags.Width = 120;
+			this.splitContainerMain.Panel2.Controls.Add(this.splitContainerRight);
+			this.splitContainerMain.Size = new System.Drawing.Size(1084, 673);
+			this.splitContainerMain.SplitterDistance = 430;
+			this.splitContainerMain.TabIndex = 3;
 			// 
-			// MenuItemEditTags
+			// splitContainerRight
 			// 
-			this.MenuItemEditTags.Name = "MenuItemEditTags";
-			this.MenuItemEditTags.Size = new System.Drawing.Size(180, 22);
-			this.MenuItemEditTags.Text = "Edit tags";
+			this.splitContainerRight.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.splitContainerRight.Location = new System.Drawing.Point(0, 0);
+			this.splitContainerRight.Name = "splitContainerRight";
+			this.splitContainerRight.Orientation = System.Windows.Forms.Orientation.Horizontal;
 			// 
-			// toolStripSeparator2
+			// splitContainerRight.Panel1
 			// 
-			this.toolStripSeparator2.Name = "toolStripSeparator2";
-			this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+			this.splitContainerRight.Panel1.Controls.Add(this.pieViewportControl1);
+			// 
+			// splitContainerRight.Panel2
+			// 
+			this.splitContainerRight.Panel2.Controls.Add(this.tabControlDetails);
+			this.splitContainerRight.Size = new System.Drawing.Size(650, 673);
+			this.splitContainerRight.SplitterDistance = 450;
+			this.splitContainerRight.TabIndex = 0;
+			// 
+			// pieViewportControl1
+			// 
+			this.pieViewportControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.pieViewportControl1.Location = new System.Drawing.Point(0, 0);
+			this.pieViewportControl1.Name = "pieViewportControl1";
+			this.pieViewportControl1.Size = new System.Drawing.Size(650, 450);
+			this.pieViewportControl1.TabIndex = 0;
+			// 
+			// tabControlDetails
+			// 
+			this.tabControlDetails.Controls.Add(this.tabModelInfo);
+			this.tabControlDetails.Controls.Add(this.tabPieContent);
+			this.tabControlDetails.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tabControlDetails.Location = new System.Drawing.Point(0, 0);
+			this.tabControlDetails.Name = "tabControlDetails";
+			this.tabControlDetails.SelectedIndex = 0;
+			this.tabControlDetails.Size = new System.Drawing.Size(650, 219);
+			this.tabControlDetails.TabIndex = 0;
+			// 
+			// tabModelInfo
+			// 
+			this.tabModelInfo.Controls.Add(this.txModelInfo);
+			this.tabModelInfo.Location = new System.Drawing.Point(4, 22);
+			this.tabModelInfo.Name = "tabModelInfo";
+			this.tabModelInfo.Padding = new System.Windows.Forms.Padding(3);
+			this.tabModelInfo.Size = new System.Drawing.Size(642, 193);
+			this.tabModelInfo.TabIndex = 0;
+			this.tabModelInfo.Text = "Model & Texture Info";
+			this.tabModelInfo.UseVisualStyleBackColor = true;
+			// 
+			// txModelInfo
+			// 
+			this.txModelInfo.BackColor = System.Drawing.Color.White;
+			this.txModelInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.txModelInfo.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txModelInfo.Location = new System.Drawing.Point(3, 3);
+			this.txModelInfo.Multiline = true;
+			this.txModelInfo.Name = "txModelInfo";
+			this.txModelInfo.ReadOnly = true;
+			this.txModelInfo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txModelInfo.Size = new System.Drawing.Size(636, 187);
+			this.txModelInfo.TabIndex = 0;
+			// 
+			// tabPieContent
+			// 
+			this.tabPieContent.Controls.Add(this.TxPieContent);
+			this.tabPieContent.Location = new System.Drawing.Point(4, 22);
+			this.tabPieContent.Name = "tabPieContent";
+			this.tabPieContent.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPieContent.Size = new System.Drawing.Size(642, 193);
+			this.tabPieContent.TabIndex = 1;
+			this.tabPieContent.Text = "Raw PIE Content";
+			this.tabPieContent.UseVisualStyleBackColor = true;
+			// 
+			// TxPieContent
+			// 
+			this.TxPieContent.BackColor = System.Drawing.Color.White;
+			this.TxPieContent.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TxPieContent.Font = new System.Drawing.Font("Consolas", 8.25F);
+			this.TxPieContent.Location = new System.Drawing.Point(3, 3);
+			this.TxPieContent.Multiline = true;
+			this.TxPieContent.Name = "TxPieContent";
+			this.TxPieContent.ReadOnly = true;
+			this.TxPieContent.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.TxPieContent.Size = new System.Drawing.Size(636, 187);
+			this.TxPieContent.TabIndex = 0;
 			// 
 			// PIEReview
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(728, 672);
-			this.Controls.Add(this.LvPieFiles);
-			this.Controls.Add(this.panel2);
+			this.ClientSize = new System.Drawing.Size(1084, 700);
+			this.Controls.Add(this.splitContainerMain);
 			this.Controls.Add(this.panel1);
+			this.MinimumSize = new System.Drawing.Size(800, 500);
 			this.Name = "PIEReview";
-			this.Text = "Model Details";
+			this.Text = "Warzone 2100 Model Browser & 3D Viewer";
 			this.contextMenuStripLV.ResumeLayout(false);
-			this.panel2.ResumeLayout(false);
-			this.panel2.PerformLayout();
 			this.toolStrip1.ResumeLayout(false);
 			this.toolStrip1.PerformLayout();
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();
+			this.splitContainerMain.Panel1.ResumeLayout(false);
+			this.splitContainerMain.Panel2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).EndInit();
+			this.splitContainerMain.ResumeLayout(false);
+			this.splitContainerRight.Panel1.ResumeLayout(false);
+			this.splitContainerRight.Panel2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.splitContainerRight)).EndInit();
+			this.splitContainerRight.ResumeLayout(false);
+			this.tabControlDetails.ResumeLayout(false);
+			this.tabModelInfo.ResumeLayout(false);
+			this.tabModelInfo.PerformLayout();
+			this.tabPieContent.ResumeLayout(false);
+			this.tabPieContent.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -270,17 +401,18 @@
 		private System.Windows.Forms.ColumnHeader columnHeadName;
 		private System.Windows.Forms.ColumnHeader columnHeadType;
 		private System.Windows.Forms.ColumnHeader columnHeaderTexture;
-		private System.Windows.Forms.Panel panel2;
 		private System.Windows.Forms.ColumnHeader columnHeadSize;
 		private System.Windows.Forms.ContextMenuStrip contextMenuStripLV;
 		private System.Windows.Forms.ToolStripMenuItem MenuItemViewInWMIT;
 		private System.Windows.Forms.ToolStripMenuItem MenuItemViewAsOBJ;
+		private System.Windows.Forms.ToolStripMenuItem MenuItemExportGltf;
 		private System.Windows.Forms.ToolStrip toolStrip1;
 		private System.Windows.Forms.ToolStripLabel toolStripLabel1;
 		private System.Windows.Forms.ToolStripTextBox ToolStripTxFilter;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripButton ToolStripBtnRefresh;
 		private System.Windows.Forms.ToolStripButton ToolStripBtnSettings;
+		private System.Windows.Forms.ToolStripButton ToolStripBtnExportGltf;
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.TextBox TxPieContent;
 		private System.Windows.Forms.ToolStripLabel toolStripLabel2;
@@ -288,6 +420,12 @@
 		private System.Windows.Forms.ColumnHeader columnHeadTags;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
 		private System.Windows.Forms.ToolStripMenuItem MenuItemEditTags;
+		private System.Windows.Forms.SplitContainer splitContainerMain;
+		private System.Windows.Forms.SplitContainer splitContainerRight;
+		private ModelExport.Controls.PieViewportControl pieViewportControl1;
+		private System.Windows.Forms.TabControl tabControlDetails;
+		private System.Windows.Forms.TabPage tabModelInfo;
+		private System.Windows.Forms.TabPage tabPieContent;
+		private System.Windows.Forms.TextBox txModelInfo;
 	}
 }
-

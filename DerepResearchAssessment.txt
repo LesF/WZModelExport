@@ -1,0 +1,66 @@
+I'll analyze the WZModelExport repository from an architectural perspective. Let me start by examining the main entry point and key components.
+
+
+
+I used the tool find_direct_connections
+
+I used the tool get_folder_tree_structure
+
+I used the tool nodes_semantic_search
+
+I used the tool get_code
+
+I used the tool get_code
+
+Now let me examine the project structure and other supporting components:
+
+Based on my analysis of the WZModelExport repository, here's my architectural assessment:
+
+## Architecture Rating: **6.5/10**
+
+### **Strengths:**
+
+1. **Clear Separation of Concerns**: The application follows a logical structure with distinct classes for different responsibilities:
+   - `ModelExport/Program.cs::Program.Main` - Entry point
+   - `ModelExport/PIEReview.cs::PIEReview` - Main application logic and UI
+   - `ModelExport/SettingsForm.cs::SettingsForm` - Configuration management
+   - `ModelExport/PIETagsEdit.cs::PIETagsEdit` - Metadata editing
+   - `ModelExport/PIEMetadata.cs::PIEMetadata` - Data model
+
+2. **Appropriate Technology Stack**: Uses .NET Framework 4.7.2 with Windows Forms, suitable for a desktop utility application targeting Windows users.
+
+3. **Configuration Management**: Proper use of `Properties.Settings.Default` for persistent application settings.
+
+4. **Data Persistence**: JSON serialization for metadata storage is simple and effective for this use case.
+
+### **Architectural Weaknesses:**
+
+1. **Monolithic Main Form**: The `ModelExport/PIEReview.cs::PIEReview` class is doing too much - it handles UI events, file I/O, process management, filtering, and data serialization all in one class (~400+ lines).
+
+2. **Tight Coupling**: Direct file system operations and process launching are embedded throughout the UI code, making testing and maintenance difficult.
+
+3. **No Service Layer**: Business logic is mixed with presentation logic. There's no abstraction for PIE file operations, WMIT integration, or metadata management.
+
+4. **Error Handling**: Basic error handling with MessageBox calls scattered throughout. No centralized error management or logging strategy.
+
+5. **Hard Dependencies**: Direct dependencies on file system paths and external processes (WMIT.exe) without proper abstraction or dependency injection.
+
+6. **Limited Extensibility**: The current structure makes it difficult to add new features like different export formats or alternative viewers.
+
+### **Specific Issues:**
+
+- **Single Responsibility Violation**: `ModelExport/PIEReview.cs::PIEReview.ReloadPieDirectory` method handles file parsing, filtering, and UI updates in one large method
+- **Process Management**: Process creation and management scattered across multiple methods without proper abstraction
+- **Data Access**: Direct JSON file operations mixed with UI logic
+- **Configuration**: Settings validation logic embedded in UI forms
+
+### **Recommendations for Improvement:**
+
+1. **Introduce Service Layer**: Create services for PIE file operations, WMIT integration, and metadata management
+2. **Implement Repository Pattern**: Abstract data persistence operations
+3. **Add Dependency Injection**: Improve testability and flexibility
+4. **Separate Business Logic**: Move domain logic out of UI classes
+5. **Implement Proper Error Handling**: Centralized logging and error management
+6. **Add Unit Tests**: Current architecture makes testing very difficult
+
+The application works well for its intended purpose but lacks the architectural foundation for easy maintenance and extension. It's a typical small utility application that grew organically without formal architectural planning.
