@@ -8,9 +8,6 @@ Assumes you have unpacked the appropriate WZ2100 resources and have a set of .pi
 
 Custom tags can be applied to each .pie file, to aid in grouping and filtering the files.
 
-WMIT.exe is used for viewing models (see https://github.com/Warzone2100/WMIT).  This can also be used to save a model as an .obj file.
-
-The 'view as OBJ' option uses shell-execute to activate your default application for handling OBJ files.
-
-There is no current support for creating an STL file.
-
+## Sept 2026 Update
+Added embedded 3D model viewer
+Matched textures to models, but have not tackled correct mapping of team colors, so team based models are jumbled 
